@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>VetNeed - Error</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 20px;
+      background-color: #f8d7da;
+      color: #721c24;
+    }
+    .container {
+      max-width: 800px;
+      margin: 0 auto;
+      background-color: #fff;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+    h1 {
+      color: #721c24;
+    }
+    pre {
+      background-color: #f1f1f1;
+      padding: 10px;
+      border-radius: 4px;
+      overflow-x: auto;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Application Error</h1>
+    <p>An error occurred while initializing the VetNeed application. Details below:</p>
+    <pre id="error-details">Loading error details...</pre>
+  </div>
+  <script>
+    if (window.electronAPI) {
+      window.electronAPI.onFatalError((event, errorMessage) => {
+        document.getElementById('error-details').textContent = errorMessage;
+      });
+
+      window.electronAPI.onErrorMessage((event, errorMessage) => {
+        document.getElementById('error-details').textContent = errorMessage;
+      });
+    } else {
+      document.getElementById('error-details').textContent = 'Unable to communicate with the main process.';
+    }
+  </script>
+</body>
+</html>
